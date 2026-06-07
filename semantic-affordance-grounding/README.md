@@ -24,6 +24,20 @@ Our group has selected the **Toy Blocks Collection** task for the final project.
 - `results/graspable_objects_output.txt`: saved query result
 - `report.md`: design report
 
+## File Links
+- [Group ontology](ontology/group-ontology.ttl)
+- [Inferred results](ontology/inferred-results.ttl)
+- [Course affordance import](ontology/imports/course-affordance.ttl)
+- [Course alignment import](ontology/imports/course-alignment.ttl)
+- [Graspable objects query](queries/graspable_objects.rq)
+- [Task objects query](queries/task_objects.rq)
+- [Graspable objects output](results/graspable_objects_output.txt)
+- [Graspable objects screenshot](results/screenshots/graspable_objects_result.png)
+- [Inferred graspable object class screenshot](results/screenshots/inferred_graspable_object_class.png)
+- [Task objects screenshot](results/screenshots/task_objects_result.png)
+- [Report](report.md)
+- Source code: not used; reasoning was performed with Protégé 5.6.3 and HermiT 1.4.3.
+
 ## Main Object Table
 | Instance | Type | Role | Affordance |
 | --- | --- | --- | --- |

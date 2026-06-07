@@ -124,6 +124,13 @@ g05:DynamicGraspingAffordance
 
 # --- Property Declarations ---
 
+g05:requiresInterceptionOf
+    a owl:ObjectProperty ;
+    rdfs:domain g05:DynamicCaptureTask ;
+    rdfs:range g05:MovingMouseBlock ;
+    rdfs:label "requires interception of"@en ;
+    rdfs:comment "Relates a dynamic capture task to the moving target that must be intercepted by the robot."@en .
+
 g05:hasMass
     a owl:DatatypeProperty ;
     rdfs:domain cap:PhysicalObject ;
@@ -158,7 +165,8 @@ g05:mouseCaptureTask01
     rdfs:label "mouse capture task 01"@en ;
     rdfs:comment "The advanced task instance where the robot must capture a moving block that represents a mouse."@en ;
     cap:hasTargetObject g05:movingMouseBlock01 ;
-    cap:hasReferenceObject g05:storageBox01 .
+    cap:hasReferenceObject g05:storageBox01 ;
+    g05:requiresInterceptionOf g05:movingMouseBlock01 .
 
 # --- Affordance Individuals ---
 

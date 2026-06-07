@@ -3,6 +3,14 @@
 ## Project Focus
 This repository models the semantic grounding for Team 5's AI Capstone project. Our primary focus is the **Toy Blocks Collection** task for the baseline and an **Advanced Level** task involving the capture of a dynamic, moving target (simulated as a **Moving Mouse** block). The ontology provides a semantic layer that allows the robot to distinguish between static reference objects and dynamic targets, while inferring graspability based on object affordances.
 
+## Repository Contents
+- `ontology/group-ontology.ttl`: Group-authored ontology containing Team 5 classes, properties, task instances, object instances, annotations, and reasoning axioms.
+- `ontology/inferred-results.ttl`: Exported inferred ontology result after running the OWL reasoner.
+- `ontology/imports/`: Imported course ontology resources, including the shared affordance vocabulary and SKOS alignment file.
+- `queries/`: SPARQL queries for inferred graspable objects and task object roles.
+- `results/`: Saved query output and screenshots showing the query results and inferred class hierarchy.
+- `README.md`: Repository instructions, file links, expected output, and reasoning workflow summary.
+
 ## Namespace Policy
 - **Shared Course Vocabulary (`cap:`):** `<https://hcis.io/ontology/aicapstone/2026/>`. We reuse these terms for baseline object types (Cup, Fork, Knife, Plate, ToyBlock, Basket) and task roles.
 - **Team 5 Modeling Space (`g05:`):** `<https://hcis.io/ontology/aicapstone/2026/group05/>`. This namespace contains our authored individuals, task variants, and advanced classes like `MovingMouseBlock`.
@@ -13,7 +21,8 @@ The ontology is designed with a strict layer separation to avoid common modeling
 1.  **Object Types:** Reused course classes (`cap:Cup`, `cap:ToyBlock`) and new project-specific subclasses (`g05:BridgeBlock`, `g05:MovingMouseBlock`).
 2.  **Task Roles:** Grounding objects into their functional context (e.g., `cap:CollectableObject`, `cap:TargetObject`).
 3.  **Affordances:** Defining the "action possibilities." We introduced `g05:PrecisionGraspingAffordance` for static blocks and `g05:DynamicGraspingAffordance` for the moving mouse block.
-4.  **Instances:** 10 task-relevant observed object individuals (individuals are never declared under the `cap:` namespace).
+4.  **Group Properties:** We introduced `g05:hasMass` as a datatype property for simulated object mass and `g05:requiresInterceptionOf` as an object property linking the dynamic capture task to the moving target that must be intercepted.
+5.  **Instances:** 10 task-relevant observed object individuals (individuals are never declared under the `cap:` namespace).
 
 ## Main Object Table
 | Instance | Type | Task Role | Affordance |
