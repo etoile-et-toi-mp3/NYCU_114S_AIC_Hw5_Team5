@@ -1,0 +1,9 @@
+cap:group05/blueBlock01	blue cylinder block 01@en	cap:CollectableObject	
+cap:group05/blueCup01	blue cup 01@en	cap:TargetObject	
+cap:group05/fork01	fork 01@en	cap:TargetObject	
+cap:group05/greenBlock01	green bridge block 01@en	cap:CollectableObject	
+cap:group05/greenBlock01	green bridge block 01@en	cap:group05/HighPriorityTarget	
+cap:group05/knife01	knife 01@en	cap:TargetObject	
+cap:group05/movingMouseBlock01	moving mouse block 01@en	cap:CollectableObject	
+cap:group05/pinkCup01	pink cup 01@en	cap:TargetObject	
+cap:group05/redBlock01	red triangle block 01@en	cap:CollectableObject
