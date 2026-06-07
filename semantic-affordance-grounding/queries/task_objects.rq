@@ -1,0 +1,11 @@
+PREFIX cap: <https://hcis.io/ontology/aicapstone/2026/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?obj ?label ?role ?pose
+WHERE {
+  ?obj a cap:PhysicalObject .
+  OPTIONAL { ?obj rdfs:label ?label . }
+  OPTIONAL { ?obj cap:hasTaskRole ?role . }
+  OPTIONAL { ?obj cap:hasPoseFrame ?pose . }
+}
+ORDER BY ?obj
