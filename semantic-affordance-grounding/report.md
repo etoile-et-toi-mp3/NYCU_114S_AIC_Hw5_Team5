@@ -16,7 +16,34 @@ The ontology is designed with a strict layer separation to avoid common modeling
 4.  **Instances:** 10 task-relevant observed object individuals (individuals are never declared under the `cap:` namespace).
 
 ## Main Object Table
+| Instance | Type | Task Role | Affordance |
+| --- | --- | --- | --- |
+| `g05:blueCup01` | `cap:Cup` | `cap:TargetObject` | `cap:GraspingAffordance`, `cap:StackabilityAffordance` |
+| `g05:pinkCup01` | `cap:Cup` | `cap:TargetObject` | `cap:GraspingAffordance`, `cap:StackabilityAffordance` |
+| `g05:knife01` | `cap:Knife` | `cap:TargetObject` | `cap:GraspingAffordance` |
+| `g05:fork01` | `cap:Fork` | `cap:TargetObject` | `cap:GraspingAffordance` |
+| `g05:plate01` | `cap:Plate` | `cap:ReferenceObject` | `cap:SupportAffordance` |
+| `g05:greenBlock01` | `g05:BridgeBlock` | `cap:CollectableObject`, `g05:HighPriorityTarget` | `g05:PrecisionGraspingAffordance` |
+| `g05:blueBlock01` | `g05:CylinderBlock` | `cap:CollectableObject` | `cap:GraspingAffordance` |
+| `g05:redBlock01` | `g05:TriangleBlock` | `cap:CollectableObject` | `cap:GraspingAffordance` |
+| `g05:storageBox01` | `g05:StorageBox` | `cap:ContainerTarget` | `cap:ContainmentAffordance` |
+| `g05:movingMouseBlock01` | `g05:MovingMouseBlock` | `cap:CollectableObject` | `g05:mouse01GraspAffordance` |
 
 ## Reasoning and Inference
+The central reasoning target is `cap:GraspableObject`. Instead of manually asserting which objects are graspable, we use the following OWL 2 DL equivalent class axiom:
+
+`cap:GraspableObject ≡ cap:PhysicalObject ⊓ ∃ cap:hasAffordance.cap:GraspingAffordance`
+
+By making `g05:PrecisionGraspingAffordance` and `g05:DynamicGraspingAffordance` subclasses of the course `cap:GraspingAffordance`, the reasoner (HermiT 1.4.3) successfully classifies the specialized bridge block and the moving mouse block as graspable objects.
 
 ## Query Results
+The SPARQL query `queries/graspable_objects.rq` was executed over the inferred model. The results confirm that the 8 objects intended for manipulation (including the new dynamic target) are correctly inferred as `cap:GraspableObject`, while the plate and storage box are excluded.
+
+## Design Choices and Limitations
+- **Dynamic Capture:** We modeled the "Mouse" as a subclass of `ToyBlock` but with a unique `DynamicGraspingAffordance` to represent the need for the robot to react to velocity and position over time.
+- **Physical Grounding:** We utilized `g05:hasMass` to bridge the semantic model with the simulation physics in NVIDIA Isaac Sim.
+- **Limitations:** Currently, the ontology assumes any object with a grasping affordance *is* graspable, regardless of its current distance or speed. A more advanced model could include state-dependent graspability (e.g., "Graspable only when within reach").
+
+## Imported Resources
+- `ontology/imports/course-affordance.ttl`: Shared course vocabulary.
+- `ontology/imports/course-alignment.ttl`: SKOS alignment to CORA/SOMA robotics ontologies.
