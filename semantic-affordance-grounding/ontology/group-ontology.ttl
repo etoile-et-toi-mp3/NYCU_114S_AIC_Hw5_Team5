@@ -1,0 +1,329 @@
+@prefix cap:   <https://hcis.io/ontology/aicapstone/2026/> .
+@prefix g05:   <https://hcis.io/ontology/aicapstone/2026/group05/> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix vann:  <http://purl.org/vocab/vann/> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+
+<https://hcis.io/ontology/aicapstone/2026/group05>
+    a owl:Ontology ;
+    owl:imports <https://hcis.io/ontology/aicapstone/2026> ;
+    rdfs:label "AI Capstone 2026 Group 05 Ontology"@en ;
+    rdfs:comment "Group 05 ontology for semantic grounding of the course manipulation tasks, including the advanced dynamic target capture task."@en ;
+    dcterms:title "AI Capstone 2026 Group 05 Ontology"@en ;
+    dcterms:description "A compact ontology that grounds the course task objects and the dynamic target capture task, supporting inference of graspable objects."@en ;
+    dcterms:creator g05:team05 ;
+    dcterms:created "2026-05-31"^^xsd:date ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    vann:preferredNamespacePrefix "g05" ;
+    vann:preferredNamespaceUri "https://hcis.io/ontology/aicapstone/2026/group05/" .
+
+g05:team05
+    a foaf:Group ;
+    foaf:name "AI Capstone Team 5"@en ;
+    rdfs:label "team 5"@en ;
+    rdfs:comment "Group 05 is the student team authoring this ontology."@en .
+
+# --- Inference Logic ---
+
+cap:GraspableObject
+    a owl:Class ;
+    rdfs:subClassOf cap:PhysicalObject ;
+    rdfs:label "graspable object"@en ;
+    rdfs:comment "A physical object that has at least one grasping affordance and can therefore be inferred as graspable."@en ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:intersectionOf (
+            cap:PhysicalObject
+            [
+                a owl:Restriction ;
+                owl:onProperty cap:hasAffordance ;
+                owl:someValuesFrom cap:GraspingAffordance
+            ]
+        )
+    ] .
+
+# --- Class Declarations ---
+
+g05:CupStackingTask
+    a owl:Class ;
+    rdfs:subClassOf cap:ManipulationTask ;
+    rdfs:label "cup stacking task"@en ;
+    rdfs:comment "A group-level class for the cup stacking baseline task."@en .
+
+g05:CutleryArrangementTask
+    a owl:Class ;
+    rdfs:subClassOf cap:ManipulationTask ;
+    rdfs:label "cutlery arrangement task"@en ;
+    rdfs:comment "A group-level class for the cutlery arrangement baseline task."@en .
+
+g05:ToyBlocksCollectionTask
+    a owl:Class ;
+    rdfs:subClassOf cap:ManipulationTask ;
+    rdfs:label "toy blocks collection task"@en ;
+    rdfs:comment "A group-level class for the toy blocks collection task used by the final project."@en .
+
+g05:DynamicCaptureTask
+    a owl:Class ;
+    rdfs:subClassOf cap:ManipulationTask ;
+    rdfs:label "dynamic capture task"@en ;
+    rdfs:comment "An advanced task where the robot must intercept and capture a moving target."@en .
+
+g05:BridgeBlock
+    a owl:Class ;
+    rdfs:subClassOf cap:ToyBlock ;
+    rdfs:label "bridge block"@en ;
+    rdfs:comment "A bridge-shaped toy block requiring precision grasping."@en .
+
+g05:CylinderBlock
+    a owl:Class ;
+    rdfs:subClassOf cap:ToyBlock ;
+    rdfs:label "cylinder block"@en ;
+    rdfs:comment "A cylinder-shaped toy block."@en .
+
+g05:TriangleBlock
+    a owl:Class ;
+    rdfs:subClassOf cap:ToyBlock ;
+    rdfs:label "triangle block"@en ;
+    rdfs:comment "A triangle-shaped toy block."@en .
+
+g05:MovingMouseBlock
+    a owl:Class ;
+    rdfs:subClassOf cap:ToyBlock ;
+    rdfs:label "moving mouse block"@en ;
+    rdfs:comment "A dynamic toy block that simulates a moving mouse for the capture task."@en .
+
+g05:StorageBox
+    a owl:Class ;
+    rdfs:subClassOf cap:Basket ;
+    rdfs:label "storage box"@en ;
+    rdfs:comment "A group-specific subclass of basket used for the toy blocks collection task."@en .
+
+g05:HighPriorityTarget
+    a owl:Class ;
+    rdfs:subClassOf cap:TaskRole ;
+    rdfs:label "high priority target"@en ;
+    rdfs:comment "A role assigned to objects that should be prioritized during collection."@en .
+
+# --- Affordance Classes ---
+
+g05:PrecisionGraspingAffordance
+    a owl:Class ;
+    rdfs:subClassOf cap:GraspingAffordance ;
+    rdfs:label "precision grasping affordance"@en ;
+    rdfs:comment "A specialized type of grasping affordance for delicate or specifically shaped objects."@en .
+
+g05:DynamicGraspingAffordance
+    a owl:Class ;
+    rdfs:subClassOf cap:GraspingAffordance ;
+    rdfs:label "dynamic grasping affordance"@en ;
+    rdfs:comment "An affordance for grasping objects that are in motion, requiring temporal synchronization."@en .
+
+# --- Property Declarations ---
+
+g05:hasMass
+    a owl:DatatypeProperty ;
+    rdfs:domain cap:PhysicalObject ;
+    rdfs:range xsd:decimal ;
+    rdfs:label "has mass"@en ;
+    rdfs:comment "Records the mass of a physical object in kilograms."@en .
+
+# --- Task Instances ---
+
+g05:cupStackingTask01
+    a g05:CupStackingTask ;
+    rdfs:label "cup stacking task 01"@en ;
+    rdfs:comment "The baseline cup stacking task instance that uses the blue and pink cups as direct target objects."@en ;
+    cap:hasTargetObject g05:blueCup01 , g05:pinkCup01 .
+
+g05:cutleryArrangementTask01
+    a g05:CutleryArrangementTask ;
+    rdfs:label "cutlery arrangement task 01"@en ;
+    rdfs:comment "The baseline cutlery arrangement task instance that manipulates the knife and fork with the plate as a placement reference."@en ;
+    cap:hasTargetObject g05:knife01 , g05:fork01 ;
+    cap:hasReferenceObject g05:plate01 .
+
+g05:toyBlocksCollectionTask01
+    a g05:ToyBlocksCollectionTask ;
+    rdfs:label "toy blocks collection task 01"@en ;
+    rdfs:comment "The project task instance where toy blocks are collected into the storage box."@en ;
+    cap:hasTargetObject g05:greenBlock01 , g05:blueBlock01 , g05:redBlock01 ;
+    cap:hasReferenceObject g05:storageBox01 .
+
+g05:mouseCaptureTask01
+    a g05:DynamicCaptureTask ;
+    rdfs:label "mouse capture task 01"@en ;
+    rdfs:comment "The advanced task instance where the robot must capture a moving block that represents a mouse."@en ;
+    cap:hasTargetObject g05:movingMouseBlock01 ;
+    cap:hasReferenceObject g05:storageBox01 .
+
+# --- Affordance Individuals ---
+
+g05:blueCup01GraspAffordance
+    a cap:GraspingAffordance ;
+    rdfs:label "blue cup grasp affordance"@en ;
+    rdfs:comment "The affordance supporting gripper-based manipulation of the blue cup."@en .
+
+g05:blueCup01StackAffordance
+    a cap:StackabilityAffordance ;
+    rdfs:label "blue cup stack affordance"@en ;
+    rdfs:comment "The affordance supporting use of the blue cup in the cup stacking task."@en .
+
+g05:pinkCup01GraspAffordance
+    a cap:GraspingAffordance ;
+    rdfs:label "pink cup grasp affordance"@en ;
+    rdfs:comment "The affordance supporting gripper-based manipulation of the pink cup."@en .
+
+g05:pinkCup01StackAffordance
+    a cap:StackabilityAffordance ;
+    rdfs:label "pink cup stack affordance"@en ;
+    rdfs:comment "The affordance supporting use of the pink cup in the cup stacking task."@en .
+
+g05:knife01GraspAffordance
+    a cap:GraspingAffordance ;
+    rdfs:label "knife grasp affordance"@en ;
+    rdfs:comment "The affordance supporting grasping and repositioning of the knife."@en .
+
+g05:fork01GraspAffordance
+    a cap:GraspingAffordance ;
+    rdfs:label "fork grasp affordance"@en ;
+    rdfs:comment "The affordance supporting grasping and repositioning of the fork."@en .
+
+g05:plate01SupportAffordance
+    a cap:SupportAffordance ;
+    rdfs:label "plate support affordance"@en ;
+    rdfs:comment "The affordance by which the plate acts as a support or placement reference."@en .
+
+g05:greenBlock01GraspAffordance
+    a g05:PrecisionGraspingAffordance ;
+    rdfs:label "green block precision grasp affordance"@en ;
+    rdfs:comment "The specialized grasping affordance for the bridge-shaped green block."@en .
+
+g05:blueBlock01GraspAffordance
+    a cap:GraspingAffordance ;
+    rdfs:label "blue block grasp affordance"@en ;
+    rdfs:comment "The affordance supporting grasping and collection of the blue cylinder block."@en .
+
+g05:redBlock01GraspAffordance
+    a cap:GraspingAffordance ;
+    rdfs:label "red block grasp affordance"@en ;
+    rdfs:comment "The affordance supporting grasping and collection of the red triangle block."@en .
+
+g05:storageBox01ContainAffordance
+    a cap:ContainmentAffordance ;
+    rdfs:label "storage box containment affordance"@en ;
+    rdfs:comment "The affordance by which the storage box can contain collected blocks."@en .
+
+g05:mouse01GraspAffordance
+    a g05:DynamicGraspingAffordance ;
+    rdfs:label "moving mouse grasp affordance"@en ;
+    rdfs:comment "The dynamic grasping affordance for catching the moving mouse block."@en .
+
+# --- Physical Object Instances ---
+
+g05:blueCup01
+    a cap:Cup ;
+    rdfs:label "blue cup 01"@en ;
+    rdfs:comment "The blue cup instance defined for the baseline cup stacking task."@en ;
+    cap:hasColor "blue" ;
+    cap:hasObjectLabel "blue_cup" ;
+    cap:hasPoseFrame "Scene/blue_cup" ;
+    cap:hasTaskRole cap:TargetObject ;
+    cap:hasAffordance g05:blueCup01GraspAffordance , g05:blueCup01StackAffordance .
+
+g05:pinkCup01
+    a cap:Cup ;
+    rdfs:label "pink cup 01"@en ;
+    rdfs:comment "The pink cup instance defined for the baseline cup stacking task."@en ;
+    cap:hasColor "pink" ;
+    cap:hasObjectLabel "pink_cup" ;
+    cap:hasPoseFrame "Scene/pink_cup" ;
+    cap:hasTaskRole cap:TargetObject ;
+    cap:hasAffordance g05:pinkCup01GraspAffordance , g05:pinkCup01StackAffordance .
+
+g05:knife01
+    a cap:Knife ;
+    rdfs:label "knife 01"@en ;
+    rdfs:comment "The knife instance defined as a manipulation target in the cutlery arrangement task."@en ;
+    cap:hasColor "metallic" ;
+    cap:hasObjectLabel "knife" ;
+    cap:hasPoseFrame "Scene/knife" ;
+    cap:hasTaskRole cap:TargetObject ;
+    cap:hasAffordance g05:knife01GraspAffordance .
+
+g05:fork01
+    a cap:Fork ;
+    rdfs:label "fork 01"@en ;
+    rdfs:comment "The fork instance defined as a manipulation target in the cutlery arrangement task."@en ;
+    cap:hasColor "metallic" ;
+    cap:hasObjectLabel "fork" ;
+    cap:hasPoseFrame "Scene/fork" ;
+    cap:hasTaskRole cap:TargetObject ;
+    cap:hasAffordance g05:fork01GraspAffordance .
+
+g05:plate01
+    a cap:Plate ;
+    rdfs:label "plate 01"@en ;
+    rdfs:comment "The plate instance defined as a reference object for arranging cutlery."@en ;
+    cap:hasColor "white" ;
+    cap:hasObjectLabel "plate" ;
+    cap:hasPoseFrame "Scene/plate" ;
+    cap:hasTaskRole cap:ReferenceObject ;
+    cap:hasAffordance g05:plate01SupportAffordance .
+
+g05:greenBlock01
+    a g05:BridgeBlock ;
+    rdfs:label "green bridge block 01"@en ;
+    rdfs:comment "The green bridge-shaped block instance modeled as a high-priority collectable target."@en ;
+    cap:hasColor "green" ;
+    cap:hasObjectLabel "green_block" ;
+    cap:hasPoseFrame "Scene/green_block" ;
+    cap:hasTaskRole cap:CollectableObject , g05:HighPriorityTarget ;
+    cap:hasAffordance g05:greenBlock01GraspAffordance ;
+    g05:hasMass 0.1 .
+
+g05:blueBlock01
+    a g05:CylinderBlock ;
+    rdfs:label "blue cylinder block 01"@en ;
+    rdfs:comment "The blue cylinder block instance modeled as a collectable toy block."@en ;
+    cap:hasColor "blue" ;
+    cap:hasObjectLabel "blue_block" ;
+    cap:hasPoseFrame "Scene/blue_block" ;
+    cap:hasTaskRole cap:CollectableObject ;
+    cap:hasAffordance g05:blueBlock01GraspAffordance ;
+    g05:hasMass 0.1 .
+
+g05:redBlock01
+    a g05:TriangleBlock ;
+    rdfs:label "red triangle block 01"@en ;
+    rdfs:comment "The red triangle block instance modeled as a collectable toy block."@en ;
+    cap:hasColor "red" ;
+    cap:hasObjectLabel "red_block" ;
+    cap:hasPoseFrame "Scene/red_block" ;
+    cap:hasTaskRole cap:CollectableObject ;
+    cap:hasAffordance g05:redBlock01GraspAffordance ;
+    g05:hasMass 0.1 .
+
+g05:storageBox01
+    a g05:StorageBox , cap:Basket ;
+    rdfs:label "storage box 01"@en ;
+    rdfs:comment "The storage box instance modeled as the container target for collected blocks."@en ;
+    cap:hasColor "gray" ;
+    cap:hasObjectLabel "storage_box" ;
+    cap:hasPoseFrame "Scene/storage_box" ;
+    cap:hasTaskRole cap:ContainerTarget ;
+    cap:hasAffordance g05:storageBox01ContainAffordance .
+
+g05:movingMouseBlock01
+    a g05:MovingMouseBlock ;
+    rdfs:label "moving mouse block 01"@en ;
+    rdfs:comment "The advanced-task target represented as a constantly moving block that simulates a mouse."@en ;
+    cap:hasColor "gray" ;
+    cap:hasObjectLabel "moving_mouse" ;
+    cap:hasPoseFrame "Scene/moving_mouse" ;
+    cap:hasTaskRole cap:CollectableObject ;
+    cap:hasAffordance g05:mouse01GraspAffordance ;
+    g05:hasMass 0.05 .
